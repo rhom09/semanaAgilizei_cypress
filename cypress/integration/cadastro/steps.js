@@ -3,17 +3,6 @@
 let Chance = require('chance')
 let chance = new Chance();
 
-Given(/^que acesso o site$/, () => {
-    //Rotas para fazer as asserções
-    cy.server();
-
-    cy.route('POST', '**/api/1/databases/userdetails/collections/newtable?**').as('postNewtable');
-    cy.route('POST', '**/api/1/databases/userdetails/collections/usertable?**').as('postNewuser');
-    cy.route('GET', '**/api/1/databases/userdetails/collections/newtable?**').as('getNewtable');
-
-    cy.visit('Register.html');
-});
-
 When(/^informar meus dados$/, () => {
     cy.get('input[ng-model="FirstName"]').type(chance.first())
     cy.get("input[ng-model='LastName']").type(chance.last())

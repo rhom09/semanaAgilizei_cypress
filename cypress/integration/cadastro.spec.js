@@ -5,13 +5,21 @@ let chance = new Chance();
 
 context('Cadastro', () => {
     it('cadastro de usuario no site', () => {
+       
+        //Rotas para fazer as asserções
+        cy.server();
+
+        cy.route('POST', '**/api/1/databases/userdetails/collections/newtable?**').as('postNewtable');
+        cy.route('POST', '**/api/1/databases/userdetails/collections/usertable?**').as('postNewuser');
+        cy.route('GET', '**/api/1/databases/userdetails/collections/newtable?**').as('getNewtable');
+
         cy.visit('Register.html');
 
-        cy.get('input[ng-model="FirstName"]').type('Romilton')
-        cy.get("input[ng-model='LastName']").type('Viana')
-        cy.get("textarea[ng-model='Adress']").type('Via Transversal Sul')
-        cy.get('input[ng-model="EmailAdress"]').type('rhom0909@teste.com')
-        cy.get('input[ng-model="Phone"]').type('959906029')
+        cy.get('input[ng-model="FirstName"]').type(chance.first())
+        cy.get("input[ng-model='LastName']").type(chance.last())
+        cy.get("textarea[ng-model='Adress']").type(chance.address())
+        cy.get('input[ng-model="EmailAdress"]').type(chance.email())
+        cy.get('input[ng-model="Phone"]').type(chance.phone({formatted: false}))
 
         // checkbox
         cy.get("input[value='Male']").check()
@@ -27,6 +35,24 @@ context('Cadastro', () => {
 
         cy.get('#firstpassword').type('Abc123@')
         cy.get('#secondpassword').type('Abc123@')
+
+        cy.get('#imagesrc').attachFile('image.png')
+
+        cy.get('#submitbtn').click()
+
+        cy.wait('@postNewtable').then((resNewtable) => {
+            expect(resNewtable.status).to.eq(200)
+        })
+
+        cy.wait('@postNewuser').then((resNewuser) => {
+            expect(resNewuser.status).to.eq(200)
+        })
+
+        cy.wait('@getNewtable').then((resNewtable) => {
+            expect(resNewtable.status).to.eq(200)
+        })
+
+        cy.url().should('contain', 'WebTable')
     });
 });
 

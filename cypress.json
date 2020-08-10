@@ -3,5 +3,9 @@
     "baseUrl": "http://demo.automationtesting.in/",
     "experimentalSourceRewriting": true,
     "watchForFileChanges": false,
-    "testFiles": "**/*.*spec.*"
+    "testFiles": "**/*.*spec.*",
+    "reporter": "cypress-multi-reporters",
+    "reporterOptions": {
+        "configFile": "reporter-config.json"
+    }
 }

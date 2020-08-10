@@ -3,5 +3,5 @@
     "baseUrl": "http://demo.automationtesting.in/",
     "experimentalSourceRewriting": true,
     "watchForFileChanges": false,
-    "testFiles": "**/*.{feature, features}"
+    "testFiles": "**/*.{feature,features}"
 }

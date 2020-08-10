@@ -31,7 +31,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version}}
       
-    # Instalando as dependencias    
+    # Instalando as dependencias
+    - run: cypress install   
     - run: npm install    
       
     # Executar os testes usando o cucumber

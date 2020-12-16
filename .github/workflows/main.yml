@@ -28,10 +28,10 @@ jobs:
     # Checks-out do codigo do projeto
     - uses: actions/checkout@v2
     # Setup do Node.js  
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v2.1.1
+    - name: Setup Node.js
+      uses: actions/setup-node@v2.1.2
       with:
-        node-version: ${{ matrix.node-version}}
+        node-version: ${{ matrix.node-version }}
       
     # Instalando as dependencias
     
